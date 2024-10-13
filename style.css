@@ -1,0 +1,444 @@
+/* General Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/*.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+    padding: 20px 0;
+    position: absolute; /* Position the header */
+    width: 100%; /* Full width header */
+    z-index: 10; /* Ensure header stays on top */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo {
+    height: 80px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 30px;
+    display: flex;
+}
+
+nav li {
+    margin-left: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white; /* White text for better contrast */
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Hero Section Styles */
+.hero {
+    position: relative;
+    padding: 0; /* Remove default padding to allow video to fill */
+}
+
+#hero-video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: relative; /* Video is now positioned normally */
+    z-index: -1;
+    opacity:0.8;
+}
+
+/* Text Overlay Styles */
+.text-overlay {
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fff;
+    font-family:  "PT Sans", Calibri, Tahoma, sans-serif;
+
+}
+
+.text-overlay h1 {
+    font-size: 5em;
+    margin-bottom: 10px;
+
+}
+
+.text-overlay p {
+    font-size: 3em;
+}
+
+
+.quote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    padding-left:20px;
+
+}
+
+.quote-image {
+    width: 100%;
+    margin-bottom:70px;
+
+}
+
+/* Autism Info Section */
+.autism-info {
+    background-color: #FFF2D7;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.autism-info h2 {
+    font-size: 2rem;
+    color: #B47B84;
+    margin-bottom: 30px;
+}
+
+.info-grid {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+
+}
+
+.info-card1, .info-card2, .info-card3 {
+    background-color: #FEFAF6;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    max-width: 170px;
+    margin: 10px;
+
+}
+
+.info-image {
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    height:150px;
+}
+
+.info-card1 h3, .info-card2 h3{
+    font-size: 1.2rem;
+    color: #D1BB9E;
+    margin-bottom: 10px;
+}
+.info-card3 h3{
+    font-size: 1.2rem;
+    color: #D1BB9E;
+    margin-bottom:80px;
+
+}
+
+.info-card1 p {
+    font-size: 1rem;
+    color: #333;
+    line-height:1.2;
+    margin-top:103px;
+}
+.info-card2 p {
+    font-size: 1rem;
+    color: #333;
+    line-height:1.2;
+    margin-top:103px;
+}
+.info-card3 p {
+    font-size: 1rem;
+    color: #333;
+    line-height:1.2;
+    margin-top:30px;
+}
+.info-card1 a, .info-card2 a, .info-card3 a{
+    text-decoration: none;
+    color: #d48f8f;
+}
+
+/* Spectrum Care Section */
+
+.spectrum-content {
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    display: block;
+    margin-top: 20px;
+}
+.spectrum-content img {
+    padding-top:10px;
+    max-width: 80%;
+    height:300px;
+    margin-right: 30px;
+    padding-left:35px;
+
+}
+
+.spectrum-content p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.4;
+
+}
+
+.autism-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+
+}
+
+.autism-info .container {
+    flex-basis: 50%;
+    padding: 20px;
+}
+
+.spectrum-care{
+    background-color:#FEFAE0;
+
+}
+.spectrum-care h2{
+    font-size: 2rem;
+    color: #B47B84;
+
+}
+.spectrum-care p{
+    font-size: 1.5rem;
+    color: #333;
+    line-height: 1.2;
+
+}
+.spectrum-care {
+            background-color: #FEFAE0;
+            padding: 0px; /* Added padding to the section */
+            padding-left:50px;
+        }
+
+        .spectrum-care h2 {
+            font-size: 2rem;
+            color: #B47B84;
+            margin-bottom:50px;
+        }
+
+        .spectrum-care p {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 2;
+        }
+
+        .content-wrapper { /* New class to manage content layout */
+            display: flex;
+            align-items: center; /* Vertically align text and image */
+        }
+
+        .text-content { /* New class for text content */
+            flex: 1; /* Text takes up available space */
+            margin-right: 20px; /* Space between text and image */
+        }
+
+        .image-content { /* New class for image content */
+            flex-shrink: 0; /* Image doesn't shrink */
+            width: 50%; /* Image takes 40% of the container width */
+        }
+
+        img{
+            width: 100%
+        }
+
+
+
+        .contact-info {
+    background-color: #EAD8C0;
+    padding: 20px;
+}
+
+.contact-info h2 {
+    font-size: 2rem;
+    color: #B47B84;
+    align-items:center;
+    padding-left:650px;
+}
+
+.contact-info p {
+    font-size: 1.5rem;
+    color: #333;
+    line-height: 1.2;
+}
+
+.contact-info form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-info .form-group {
+    margin-bottom: 10px;
+}
+
+.contact-info label {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.contact-info input[type="text"], .contact-info input[type="email"], .contact-info textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.contact-info button[type="submit"] {
+    background-color: #B47B84;
+    color: #FFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-info button[type="submit"]:hover {
+    background-color: #D1BB9E;
+}
+
+.step-by-step {
+    background-color: #FFF2D7;
+    padding: 50px 0px;
+}
+
+.step-by-step h2 {
+    font-size: 2.5rem;
+    color: #B47B84;
+    margin-bottom: 20px;
+    text-align: center; /* Center the heading */
+    margin-bottom: 50px;
+}
+
+.step-by-step .content-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.step-by-step .text-content {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.step-by-step .image-content {
+    flex-shrink: 0;
+    width: 50%;
+
+}
+
+.step-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 30px; /* Space between image and text */
+}
+
+
+.step-grid{
+      display: flex;
+      grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+      gap: 40px; /* Space between grid items */
+      margin-left:40px;
+}
+
+.step-item { /* Style for each step item */
+      text-align: center; /* Center content within each item */
+}
+
+.testimonials {
+    background-color: #FFF2D7; /* Light background color */
+    background-color:#FEFAE0;
+    padding: 50px 0; /* Padding for the section */
+}
+
+.testimonials h2 {
+    text-align: center; /* Center the heading */
+    font-size: 2rem; /* Size for the main heading */
+    color: #B47B84; /* Heading color */
+    margin-bottom: 10px; /* Margin below heading */
+}
+
+.testimonials h3 {
+    text-align: center; /* Center the subheading */
+    font-size: 1.5rem; /* Size for the subheading */
+    color: #A67C82; /* Subheading color */
+    margin-bottom: 30px; /* Margin below subheading */
+}
+
+.testimonial-grid {
+    display: grid; /* Use CSS Grid for layout */
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 80px; /* Space between testimonials */
+    padding: 0 20px; /* Horizontal padding */
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.testimonial-item {
+    background-color: #fff; /* White background for each testimonial */
+    border-radius: 30px; /* Rounded corners */
+    padding: 20px; /* Padding inside testimonial */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    text-align: center; /* Center content */
+}
+
+.quote {
+    font-size: 1rem; /* Font size for the quote */
+    font-style: italic; /* Italicize quote */
+    margin-bottom: 10px; /* Margin below quote */
+}
+
+.author {
+    font-weight: bold; /* Bold for author name */
+    color: #B47B84; /* Author name color */
+}
+.testimonial-item img{
+      width:50px;
+      height:auto;
+}
+
+
+/* Style the up arrow button */
+#upArrow {
+  display: none; /* Initially hidden */
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99; /* Make sure it's on top of other content */
+  font-size: 18px;
+  background-color: #D1BB9E; /* Dark background */
+  color: white; /* White text */
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Optional shadow for effect */
+}
+
+#upArrow:hover {
+  background-color: #A79277; /* Darker on hover */
+}
