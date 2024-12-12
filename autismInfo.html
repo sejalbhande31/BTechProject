@@ -1,94 +1,162 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectrum Care</title>
-    <link rel="stylesheet" href="style.css">
+    <title>What is Autism?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3ece0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px; /* Increased width for side-by-side layout */
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex; /* Flexbox to allow side-by-side layout */
+            flex-wrap: wrap;
+        }
+
+        .image-container {
+            flex: 1;
+            padding-right: 20px;
+            padding-top: 100px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .image-container1 img{
+            height: 800px;
+            padding-top: 70px;
+        }
+
+        .article-content {
+            flex: 2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6a4c6c;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: #6a4c6c;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #6a4c6c;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            background: #fff8e1;
+            padding: 10px;
+            border-left: 4px solid #92506e;
+            margin: 15px 0;
+        }
+
+        ul {
+            margin: 10px 0 20px 20px;
+            padding-left: 0;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .myths {
+            background: #fff8e1;
+            padding: 10px;
+            border-left: 4px solid #92506e;
+            margin: 15px 0;
+        }
+
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px 0;
+            background-color: #6a4c6c;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-
-    <header>
-        <div class="container">
-            <img src="logo.png" alt="Logo" id="logo">
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">What is Autism?</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container">
-            <video id="hero-video" autoplay muted loop>
-                <source src="baby_video.mp4" type="video/mp4">
-            </video>
-
-            <div class="text-overlay">
-                <h1>SPECTRUM CARE</h1>
-                <p>Empowering Early Autism Detection and Personalized Care</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="quote">
-        <div class="container">
-             <img src="pic 5.jpg" alt="Image" class="quote-image">
-
-        </div>
-    </section>
-
-    <section class="info-and-spectrum">
-
     <div class="container">
-         <!-- Autism Information Section -->
-            <div class="autism-info">
-                <h2>Autism Information and Support</h2>
-
-        <div class="info-grid">
-            <div class="info-card">
-                <img src="autism1.jpg" alt="Child Playing" class="info-image">
-                <h3><a href="#">What is Autism?</a></h3>
-                <p>Learn more about Autism Spectrum Disorder</p>
-            </div>
-            <div class="info-card">
-                <img src="autism2.jpg" alt="Child Playing" class="info-image">
-                <h3><a href="#">Signs of Autism</a></h3>
-                <p>Learn the signs of autism</p>
-            </div>
-            <div class="info-card">
-                <img src="autism3.jpg" alt="Child Playing" class="info-image">
-                <h3><a href="#">Early Detection and Intervention</a></h3>
-                <p>Learn why it should be early intervened</p>
+        <!-- Image Section -->
+        <div class="image-container">
+            <img src="images/autism-kids.jpg" alt="Autistic Children" />
+            <div class="image-container1">
+                <img src="images/autism-alphabets.jpg" alt="Autistic Children" />
             </div>
         </div>
-    </div>
-    </div>
 
+        <!-- Article Section -->
+        <div class="article-content">
+            <h1>What is Autism?</h1>
 
-    <div class="spectrum-care">
+            <h2>Introduction</h2>
+            <p>Autism, or Autism Spectrum Disorder (ASD), is a developmental condition that affects how a person communicates, interacts socially, and perceives the world. It is referred to as a "spectrum" because the challenges and abilities of individuals with autism vary widely. Some may have exceptional skills in specific areas like mathematics or music, while others might face significant difficulties in daily living.</p>
 
-        <h2>Why we call it as Spectrum Care?</h2>
-        <div class="spectrum-content">
-            <img src="spectrum.jpg" alt="Autism Spectrum Explanation">
-            <p>Autism is known as a “spectrum” disorder because there is wide variation in the type and severity of symptoms people experience.</p>
-            <p>And here we are caring for that spectrum...</p>
+            <h2>Research on Autism</h2>
+            <p>Over the years, extensive research has shed light on autism, its causes, and interventions. Studies suggest that autism is linked to a combination of genetic and environmental factors. While there is no cure for autism, early intervention and therapies like speech therapy, behavioral therapy, and occupational therapy have been shown to improve outcomes significantly.</p>
+            <div class="highlight">
+                <p><strong>Recent Advancements:</strong> The use of artificial intelligence and eye-tracking technology has emerged as a promising tool for early detection.</p>
+            </div>
+
+            <h2>Causes of Autism</h2>
+            <ul>
+                <li><strong>Genetics:</strong> Certain genetic mutations or a family history of autism can increase the likelihood of a diagnosis.</li>
+                <li><strong>Environmental Factors:</strong> Prenatal exposure to certain medications, infections, or toxins may contribute to the development of autism.</li>
+                <li><strong>Neurological Factors:</strong> Differences in brain structure and function have been observed in individuals with autism.</li>
+            </ul>
+            <p>It is important to note that no one factor directly causes autism, and it is a complex interplay of various elements.</p>
+
+            <h2>Common Myths About Autism</h2>
+            <div class="myths">
+                <ul>
+                    <li><strong>Myth:</strong> Vaccines Cause Autism. <br><strong>Fact:</strong> This claim has been repeatedly disproven by scientific research.</li>
+                    <li><strong>Myth:</strong> Autism is a Disease. <br><strong>Fact:</strong> Autism is a neurodevelopmental condition, not a disease.</li>
+                    <li><strong>Myth:</strong> All Autistic People Have Intellectual Disabilities. <br><strong>Fact:</strong> Many individuals with autism have average or above-average intelligence.</li>
+                    <li><strong>Myth:</strong> Autism is Caused by Bad Parenting. <br><strong>Fact:</strong> This outdated and harmful myth has no basis in science.</li>
+                </ul>
+            </div>
+
+            <p>By understanding what autism is—and debunking myths surrounding it—parents and communities can better support individuals with autism and help them thrive in a world that embraces neurodiversity.</p>
         </div>
     </div>
-    </div>
-    </section>
-
-
 
     <footer>
-        <div class="container">
-            <div class="chat-icon"></div>
-        </div>
+        <p>Need more information? Visit <a href="#">More Resources</a>.</p>
     </footer>
-
 </body>
 </html>

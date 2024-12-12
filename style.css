@@ -124,7 +124,7 @@ nav a {
 
 }
 
-.info-card1, .info-card2, .info-card3 {
+.info-card1,.info-card2, .info-card3 {
     background-color: #FEFAF6;
     padding: 20px;
     border-radius: 5px;
@@ -137,6 +137,13 @@ nav a {
 .info-image {
     width: 80%;
     border-radius: 10px;
+    margin-bottom: 15px;
+    height:150px;
+}
+.info-image1{
+    width: 80%;
+    border-radius: 10px;
+    margin-top: 20px;
     margin-bottom: 15px;
     height:150px;
 }
@@ -157,7 +164,7 @@ nav a {
     font-size: 1rem;
     color: #333;
     line-height:1.2;
-    margin-top:103px;
+    margin-top: 103px;
 }
 .info-card2 p {
     font-size: 1rem;
@@ -441,4 +448,14 @@ nav a {
 
 #upArrow:hover {
   background-color: #A79277; /* Darker on hover */
+}
+
+.info-card-link {
+    text-decoration: none;
+    color: inherit;
+   display: block;
+}
+
+.info-card1 {
+    cursor: pointer; /* Indicates that the card is clickable */
 }
