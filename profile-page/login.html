@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SpectrumCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3ece0;
+        }
+
+        .container {
+          
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            padding-left: 40px;
+        }
+
+        .signup-form-container {
+            flex: 1;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            
+        }
+
+        .signup-form {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .signup-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #9b4489;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            padding-top: 15px;
+        }
+
+        .input-icon {
+            display: flex;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .input-icon i {
+            margin-right: 10px;
+            color: #888;
+        }
+
+        .input-icon input {
+            border: none;
+            background: none;
+            outline: none;
+            flex: 1;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #947d90;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #d3acd8;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        p a {
+            color: #712d66;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="parent.jpg" alt="SpectrumCare">
+        </div>
+        <div class="signup-form-container">
+            <div class="signup-form">
+                <h2>LOGIN TO PROFILE</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn">LOGIN</button>
+                    </div>
+                </form>
+                <p><a href="forgot-password.html">Forgot password?</a></p>
+                <p>Don't have a profile? <a href="signup.html">Create new profile</a></p>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
