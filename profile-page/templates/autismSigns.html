@@ -114,12 +114,12 @@
     <div class="container">
         <!-- Image Container with two images on the left -->
         <div class="image-container">
-            <img src="images/autism-signs.png" alt="Autism Image">
+            <img src="{{ url_for('static', filename='images/autism-signs.png') }}" alt="Autism Image">
             <div class="image-container1">
-                <img src="images/autism-signs2.jpg" alt="Autism Image">
+                <img src="{{ url_for('static', filename='images/autism-signs2.jpg') }}" alt="Autism Image">
             </div>
             <div class="image-container1">
-                <img src="images/autism-kids1.jpg" alt="Autism Image">
+                <img src="{{ url_for('static', filename='images/autism-kids1.jpg') }}" alt="Autism Image">
             </div>
             
         </div>

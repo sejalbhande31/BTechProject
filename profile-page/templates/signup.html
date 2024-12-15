@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - SpectrumCare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
 
 </head>
 
 <body>
+
+   
     
-
-
     <div class="container">
         <div class="image-container">
-            <img src="parent.jpg" alt="SpectrumCare">
+            <img src="{{ url_for('static', filename='images/parent-signin.jpg') }}" alt="SpectrumCare">
         </div>
         <div class="signup-form-container">
             <div class="signup-form">
@@ -70,10 +70,14 @@
                         <button type="submit" class="btn">Sign Up</button>
                     </div>
                 </form>
-                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
             </div>
         </div>
     </div>
+
+    
+
+
 </body>
 
 </html>

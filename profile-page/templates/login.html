@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password - SpectrumCare</title>
+    <title>Login - SpectrumCare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -14,10 +14,11 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f5f5f5;
+            background-color: #f3ece0;
         }
 
         .container {
+
             display: flex;
             flex-wrap: wrap;
             max-width: 1000px;
@@ -31,35 +32,39 @@
         .image-container {
             flex: 1;
             min-width: 300px;
-            background-color: #e9f5fe;
+            background-color: white;
         }
 
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            padding-left: 40px;
         }
 
-        .form-container {
+        .signup-form-container {
             flex: 1;
             padding: 20px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+
         }
 
-        .form {
+        .signup-form {
             max-width: 400px;
             margin: auto;
         }
 
-        .form h2 {
+        .signup-form h2 {
             margin-bottom: 20px;
             text-align: center;
+            color: #9b4489;
         }
 
         .form-group {
             margin-bottom: 15px;
+            padding-top: 15px;
         }
 
         .input-icon {
@@ -85,7 +90,7 @@
         .btn {
             width: 100%;
             padding: 10px;
-            background: #007bff;
+            background-color: #947d90;
             color: white;
             border: none;
             border-radius: 5px;
@@ -94,7 +99,7 @@
         }
 
         .btn:hover {
-            background: #0056b3;
+            background-color: #d3acd8;
         }
 
         p {
@@ -102,13 +107,15 @@
         }
 
         p a {
-            color: #007bff;
+            color: #712d66;
             text-decoration: none;
         }
 
         p a:hover {
             text-decoration: underline;
         }
+
+        
 
         @media (max-width: 768px) {
             .container {
@@ -123,14 +130,15 @@
 </head>
 
 <body>
+
     <div class="container">
         <div class="image-container">
-            <img src="reset-password.jpg" alt="Forgot Password">
+            <img src="{{ url_for('static', filename='images/parent-signin.jpg') }}" alt="SpectrumCare">
         </div>
-        <div class="form-container">
-            <div class="form">
-                <h2>RESET PASSWORD</h2>
-                <form action="#" method="POST">
+        <div class="signup-form-container">
+            <div class="signup-form">
+                <h2>LOGIN TO PROFILE</h2>
+                <form action="/login" method="post">
                     <div class="form-group">
                         <div class="input-icon">
                             <i class="fas fa-envelope"></i>
@@ -139,46 +147,22 @@
                     </div>
                     <div class="form-group">
                         <div class="input-icon">
-                            <i class="fas fa-phone-alt"></i>
-                            <input type="tel" id="phone" name="phone" placeholder="Phone Number (optional)">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <button type="button" class="btn" onclick="sendOTP()">Send OTP</button>
-                    </div>
-                    <div class="form-group" id="otp-section" style="display: none;">
-                        <div class="input-icon">
-                            <i class="fas fa-key"></i>
-                            <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
-                        </div>
-                    </div>
-                    <div class="form-group" id="reset-section" style="display: none;">
-                        <div class="input-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="new-password" name="new-password" placeholder="New Password" required>
-                        </div>
-                        <div class="input-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
-                        </div>
-                        <button type="submit" class="btn">Reset Password</button>
+                        <button type="submit" class="btn">LOGIN</button>
                     </div>
                 </form>
-                <p>Remembered your password? <a href="login.html">Login here</a></p>
+                <p><a href="{{ url_for('forgotPassword') }}">Forgot password?</a></p>
+                <p>Don't have a profile? <a href="{{ url_for('signup') }}">Create new profile</a></p>
+
             </div>
         </div>
     </div>
 
-    <script>
-        function sendOTP() {
-            // Simulate sending OTP to email or phone
-            alert('OTP sent to your email/phone!');
-
-            // Show OTP input and reset section
-            document.getElementById('otp-section').style.display = 'block';
-            document.getElementById('reset-section').style.display = 'block';
-        }
-    </script>
 </body>
 
 </html>
