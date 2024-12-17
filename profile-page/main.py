@@ -4,6 +4,9 @@ from mysql.connector import Error
 import os, random, string, smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import base64
+from PIL import Image
+from io import BytesIO
 
 app = Flask(__name__)
 app.secret_key = 'sejal@2004@2412'  # Secret key for session management

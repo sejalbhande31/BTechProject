@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3ece0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            position: relative; 
+        }
+
+        .video-container {
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            width: 80%;
+        }
+
+        #child-video {
+            width: 800px;
+            height: 500px;
+            padding-right: 150px;
+        }
+
+        /* Button Styling */
+        .button-container {
+            margin-top: 20px;
+        }
+
+        #start-detection {
+            padding: 10px 20px;
+            background-color: rgb(124, 86, 86);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        #start-detection:hover {
+            background-color: #c09191;
+        }
+
+        /* Camera Feed */
+        #camera-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            height: 150px;
+            border: 2px solid #dfecfb;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-right: 15px;
+            margin-top: 15px;
+        }
+
+        #camera-feed {
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        /* Hidden Class */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- YouTube Video for Child to Watch -->
+        <div class="video-container">
+            <iframe
+                id="child-video"
+                src="https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=0"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Start Detection Button -->
+        <div class="button-container">
+            <button id="start-detection">START DETECTION</button>
+        </div>
+
+        <!-- Camera Feed -->
+        <div id="camera-container" class="hidden">
+            <video id="camera-feed" autoplay muted></video>
+        </div>
+    </div>
+
+    <script>
+        // Elements
+        const startDetectionButton = document.getElementById("start-detection");
+        const cameraContainer = document.getElementById("camera-container");
+        const cameraFeed = document.getElementById("camera-feed");
+        const childVideo = document.getElementById("child-video");
+
+        startDetectionButton.addEventListener("click", () => {
+            // Show the camera feed container
+            cameraContainer.classList.remove("hidden");
+
+            // Start webcam stream
+            navigator.mediaDevices
+                .getUserMedia({ video: true })
+                .then((stream) => {
+                    cameraFeed.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error("Error accessing the camera: ", error);
+                    alert("Unable to access the camera. Please ensure it is connected and allowed.");
+                });
+
+            // Start the YouTube video by adding autoplay=1 to the src
+            const videoSrc = "https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=1";
+            childVideo.src = videoSrc;
+        });
+    </script>
+</body>
+
+</html>
