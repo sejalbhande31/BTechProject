@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intervention Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background: url('/static/images/bg-pic.jpg') no-repeat center center fixed;
+            /* Background image */
+            background-size: cover;
+            /* Cover the entire viewport */
+        }
+
+        h1 {
+            color: #59244c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .chart-card {
+            width: 45%;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+        .back-to-dashboard {
+    position: absolute;
+    left: 60px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 20px; /* Adjust the width of the icon */
+    height: 20px; /* Adjust the height of the icon */
+    margin-right: 8px; /* Space between the icon and the text */
+    vertical-align: middle;
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+    <h1>INTERVENTION ANALYTICS</h1>
+    <div class="chart-container" id="charts-container">
+        <!-- Graphs will be dynamically added here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/get_scores') // Fetch data from the backend
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('charts-container');
+
+                    data.forEach((game, index) => {
+                        // Create a container for each graph
+                        const chartCard = document.createElement('div');
+                        chartCard.className = 'chart-card';
+
+                        // Add a canvas for the graph
+                        const canvas = document.createElement('canvas');
+                        canvas.id = `chart-${index}`;
+                        chartCard.appendChild(canvas);
+                        container.appendChild(chartCard);
+
+                        // Render the graph
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: game.scores.map((_, i) => `Attempt ${i + 1}`),
+                                datasets: [{
+                                    label: `${game.game_type} Scores`,
+                                    data: game.scores,
+                                    borderColor: 'rgba(89, 36, 76, 1)', // Border color with full opacity
+                                    backgroundColor: 'rgba(89, 36, 76, 0.2)', // Background color with 20% opacity
+                                    tension: 0.4,
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: { display: true, position: 'top' },
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: 'Attempts' } },
+                                    y: { title: { display: true, text: 'Scores' } }
+                                }
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching scores:', error));
+        });
+    </script>
+</body>
+
+</html>

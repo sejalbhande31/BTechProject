@@ -21,7 +21,8 @@ from tensorflow.keras.models import load_model
 from collections import Counter
 
 app = Flask(__name__)
-app.secret_key = 'sejal@2004@2412'  # Secret key for session management
+app.secret_key = 'sejal@2004@2412@2921'  # Secret key for session management
+app.config['SESSION_TYPE'] = 'filesystem'
 CORS(app)  # Allow CORS for communication between frontend and backend
 
 
@@ -103,6 +104,7 @@ def signup():
 # Route to render the login page and handle login logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+   
     if request.method == 'POST':
         # Get form data
         email = request.form.get('email')
@@ -110,17 +112,19 @@ def login():
 
         try:
             conn = mysql.connector.connect(**db_config)
-            cursor = conn.cursor()
+            cursor = conn.cursor(dictionary=True)  # Enable dictionary cursor
 
             # Query to check if email exists in the database
             query = "SELECT * FROM users WHERE email = %s"
             cursor.execute(query, (email,))
             user = cursor.fetchone()
 
+            print(f"User fetched: {user}")  # Debugging: Check the fetched user
+
             # Check if user exists and password matches
-            if user and user[4] == password:  # user[3] is the 'password' field in the 'users' table
+            if user and user['password'] == password:  # user[4] is the 'password' field in the 'users' table
                 # Store user data in session
-                session['user_id'] = user[0]  # Assuming 'user_id' is in the first column
+                session['user_id'] = user['user_id']  # Assuming 'user_id' is in the first column
                 flash('Login successful!', 'success')
                 return redirect(url_for('parentDashboard'))  # Redirect to home or dashboard page
             else:
@@ -243,7 +247,7 @@ def send_otp_to_email(email, otp):
         # Use your email provider's SMTP server (Gmail, for example)
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
-            server.login('sejalbhande31@gmail.com', 'bfcj bkog qcih dcuz')  # Login with your email credentials
+            server.login('sejalbhande31@gmail.com', 'mzie zqig eeyt deol')  # Login with your email credentials
             text = msg.as_string()
             server.sendmail(msg['From'], msg['To'], text)
     except Exception as e:
@@ -318,13 +322,18 @@ def verifyOtp():
 @app.route('/parentDashboard')
 def parentDashboard():
     user_id = session.get('user_id')
+
+     
+    # Call the function to determine if detection is completed
+    detection_completed = is_detection_completed()
+
     
     if user_id:  # If the user is logged in
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor(dictionary=True)  # Enable dictionary cursor
 
         query = """
-            SELECT c.full_name, c.dob, c.gender, c.age, u.parent_name
+             SELECT c.full_name, c.dob, c.gender, c.age, u.parent_name
             FROM users u
             JOIN children c ON u.user_id = c.parent_id
             WHERE u.user_id = %s;
@@ -339,13 +348,14 @@ def parentDashboard():
             child_gender = result['gender']
             child_age = result['age']
             parent_name = result['parent_name']
+           
 
             # Close the cursor and connection
             cursor.close()
             conn.close()
 
             # Pass the data to the template
-            return render_template('parentDashboard.html', 
+            return render_template('parentDashboard.html',detection_completed=detection_completed, 
                                    child_name=child_name, 
                                    child_dob=child_dob, 
                                    child_gender=child_gender, 
@@ -355,7 +365,7 @@ def parentDashboard():
             # If no data found for the user, redirect to login
             cursor.close()
             conn.close()
-            return redirect(url_for('login'))
+            return redirect(url_for('update_profile'))
     else:
         # If the user is not logged in, redirect to login
         return redirect(url_for('login'))
@@ -380,9 +390,62 @@ def detectGuide():
 def detection():
     return render_template('detection.html') 
 
+
+def is_detection_completed():
+    # Assuming conn is an active database connection
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    # The SQL query (replace with your actual logic)
+    query = "SELECT COUNT(*) FROM capturedimages;"  # Example query
+    cursor.execute(query)
+    
+    # Fetch the result
+    result = cursor.fetchone()
+    
+    # Return True if count > 0, False otherwise
+    return result[0] > 0
+
+@app.route('/reportsSummary')
+def reportsSummary():
+    # Classify all images in the folder
+    results = classify_images_from_folder()
+
+    # Calculate majority result
+    majority_result, result_counts,autistic_count,non_autistic_count = calculate_majority(results)
+  
+    # Return the results to the frontend
+    return render_template('reportsSummary.html', result_counts=result_counts, majority_result=majority_result,autistic_count=autistic_count,non_autistic_count=non_autistic_count)
+   
+
 @app.route('/intervention')
 def intervention():
     return render_template('intervention.html')
+
+
+@app.route('/interventionReport')
+def interventionReport():
+    return render_template('interventionReport.html')  # This will render the HTML page with the graph
+
+@app.route('/get_scores', methods=['GET'])
+def get_scores():
+    # Execute the raw SQL query
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT 
+            game_type, 
+            GROUP_CONCAT(score) AS scores
+        FROM 
+            game_scores
+        GROUP BY 
+            game_type
+    """)
+    data = cursor.fetchall()
+
+    # Format the data as JSON
+    result = [{'game_type': row[0], 'scores': row[1].split(',')} for row in data]
+    return jsonify(result)
 
 @app.route('/countingGame')
 def countingGame():
@@ -458,7 +521,11 @@ def classify_images_from_folder():
 def calculate_majority(results):
     result_counts = Counter(results)
     majority_result = result_counts.most_common(1)[0][0]
-    return majority_result, result_counts
+    autistic_count = result_counts.get('Autistic',0)
+    non_autistic_count = result_counts.get('Non-Autistic',0)
+    
+    
+    return majority_result, result_counts, autistic_count, non_autistic_count
 
 import mysql.connector
 
@@ -468,11 +535,11 @@ def index1():
     results = classify_images_from_folder()
 
     # Calculate majority result
-    majority_result, result_counts = calculate_majority(results)
+    majority_result, result_counts,autistic_count,non_autistic_count = calculate_majority(results)
   
 
     # Return the results to the frontend
-    return render_template('index1.html', result_counts=result_counts, majority_result=majority_result)
+    return render_template('index1.html', result_counts=result_counts, majority_result=majority_result,autistic_count=autistic_count,non_autistic_count=non_autistic_count)
 
 
 @app.route('/questionnaire')

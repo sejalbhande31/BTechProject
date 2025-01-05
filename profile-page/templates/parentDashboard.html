@@ -45,7 +45,6 @@
 
 </html> -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,15 +55,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_dashboard.css') }}">
 </head>
 <style>
-.profile-info img{
+.profile-info img {
     width: 300px;
     height: 280px;
-} 
+}
 
-.card img{
+.card img {
     margin-top: 20px;
     width: 250px;
-    height: 200px;
+    height: 180px;
 }
 
 </style>
@@ -74,7 +73,7 @@
     <div class="sidebar">
         <h2>Welcome to your dashboard!</h2>
         <ul>
-            <li><a href="{{url_for('parentDashboard')}}"><img src="{{ url_for('static', filename='images/profile_overview.png') }}" alt="Profile Icon"> Profile Overview</a></li>
+            <li><a href="{{ url_for('parentDashboard') }}"><img src="{{ url_for('static', filename='images/profile_overview.png') }}" alt="Profile Icon"> Profile Overview</a></li>
             <li><a href="{{ url_for('detectGuide') }}"><img src="{{ url_for('static', filename='images/diagnosis.png') }}" alt="Diagnosis Icon"> Diagnosis</a></li>
             <li><a href="{{ url_for('intervention') }}"><img src="{{ url_for('static', filename='images/interventions.png') }}" alt="Interventions Icon"> Interventions</a></li>
             <li><a href="{{ url_for('resources_support') }}"><img src="{{ url_for('static', filename='images/resources.png') }}" alt="Resources Icon"> Resources & Support</a></li>
@@ -91,57 +90,59 @@
             <ul>
                 <li>
                     <span>Child's Name</span>
-                    <strong>{{child_name}}</strong>
+                    <strong>{{ child_name }}</strong>
                 </li>
                 <li>
                     <span>D.O.B</span>
-                    <strong>{{child_dob}}</strong>
+                    <strong>{{ child_dob }}</strong>
                 </li>
                 <li>
                     <span>Age</span>
-                    <strong>{{child_age}}</strong>
+                    <strong>{{ child_age }}</strong>
                 </li>
                 <li>
                     <span>Gender</span>
-                    <strong>{{child_gender}}</strong>
+                    <strong>{{ child_gender }}</strong>
                 </li>
                 <li>
                     <span>Parent's Name</span>
-                    <strong>{{parent_name}}</strong>
+                    <strong>{{ parent_name }}</strong>
                 </li>
             </ul>
             <img src="/static/images/children.jpg" alt="children-pic">
         </div>
-        
 
         <!-- Cards Section -->
         <div class="cards-container">
             <div class="card">
                 <h4>Detection Summary</h4>
                 {% if detection_completed %}
-                    <p>Overview of diagnosis and analysis</p>
-                    <a href="{{ url_for('detection') }}" class="btn">View Detection</a>
-                    <img src="/static/images/reports.jpg" alt="children-pic">
+                    <!-- <p>Your child has completed the detection process! <br><br><br>Click to get detailed insights.</p>
+                    <a href="{{ url_for('reportsSummary') }}" class="btn">View Insights</a> -->
+                    <p>Your child hasn't completed the detection process yet! <br><br>Start now to get detailed insights.</p>
+                    <a href="{{ url_for('detection') }}" class="btn">Start Detection</a>
                 {% else %}
                     <p>Your child hasn't completed the detection process yet! <br><br>Start now to get detailed insights.</p>
                     <a href="{{ url_for('detectGuide') }}" class="btn">Start Detection</a>
-                   
                 {% endif %}
+                <!-- Remove extra image from here -->
                 <img src="/static/images/reports.jpg" alt="children-pic">
-                
             </div>
+
             <div class="card">
                 <h4>Intervention Summary</h4>
                 {% if intervention_completed %}
-                <p>Overview of interventions and progress</p>
-                <a href="{{ url_for('intervention') }}" class="btn">View Interventions</a>
-            {% else %}
-                <p>Your child hasn't completed the interventions yet! <br><br>Start now to get detailed insights.</p>
-                <a href="{{ url_for('intervention') }}" class="btn">Start Intervention</a>
-            {% endif %}
-            <img src="/static/images/reports1.jpg" alt="children-pic">
+                    <!-- <p>Your child has completed the interventions! <br><br>Click to get detailed insights.</p>
+                    <a href="{{ url_for('reportsSummary') }}" class="btn">View Insights</a> -->
+                    <p>Your child hasn't completed the interventions yet! <br><br>Start now to get detailed insights.</p>
+                    <a href="{{ url_for('intervention') }}" class="btn">Start Intervention</a>
+                {% else %}
+                    <p>Your child hasn't completed the interventions yet! <br><br>Start now to get detailed insights.</p>
+                    <a href="{{ url_for('intervention') }}" class="btn">Start Intervention</a>
+                {% endif %}
+                <!-- Remove extra image from here as well -->
+                <img src="/static/images/reports1.jpg" alt="children-pic">
             </div>
-         
         </div>
     </div>
 

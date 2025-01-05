@@ -220,7 +220,7 @@
         <!-- Start and Stop Detection Buttons -->
         <div class="button-container">
             <button id="start-detection">START DETECTION</button>
-            <button id="stop-detection" class="hidden">STOP DETECTION</button>
+            <button id="stop-detection" class="hidden" >STOP DETECTION</button>
         </div>
 
         <!-- Camera Feed -->
@@ -290,7 +290,7 @@
 
             // Alert and redirect
             alert("Detection has been stopped.");
-            window.location.href = "{{ url_for('questionnaire') }}"; 
+            window.location.href = "{{ url_for('index1') }}"; 
         }
 
         startDetectionButton.addEventListener("click", () => {

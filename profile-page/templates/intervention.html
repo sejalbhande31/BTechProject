@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intervention Plan - Games</title>
     <link rel="stylesheet" href="/static/styles/style_intervention.css">
+    <style>
+        /* Button Styling */
+        .view-analytics-btn {
+            display: block;
+            width: 250px;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 30px auto;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            background-color: #947d90;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .view-analytics-btn:hover {
+            background-color: #715b6c;
+            /* Darker green */
+        }
+
+        /* Optional: Style for the rest of the container */
+        .container {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
     <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
         <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
@@ -42,13 +74,17 @@
 
             <!-- Iterate through other games -->
             {% for game in games %}
-                <div class="game-card">
-                    <h2>{{ game.name }}</h2>
-                    <img src="path/to/{{ game.image }}" alt="{{ game.name }} Game Image" class="game-image">
-                    <a href="{{ url_for('game_details', game_id=game.id) }}" class="game-link">Start Game</a>
-                </div>
+            <div class="game-card">
+                <h2>{{ game.name }}</h2>
+                <img src="path/to/{{ game.image }}" alt="{{ game.name }} Game Image" class="game-image">
+                <a href="{{ url_for('game_details', game_id=game.id) }}" class="game-link">Start Game</a>
+            </div>
             {% endfor %}
         </div>
+
+        <!-- View Intervention Analytics Button -->
+        <a href="{{ url_for('interventionReport') }}" class="view-analytics-btn">View Intervention Analytics</a>
     </div>
 </body>
+
 </html>

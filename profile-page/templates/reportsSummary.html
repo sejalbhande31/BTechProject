@@ -65,40 +65,7 @@
             margin-top: 20px;
         }
 
-        .intervention-button {
-            display: inline-block;
-            background-color: #905878;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background-color 0.3s ease;
-        }
-
-        .intervention-button:hover {
-            background-color: #b486aa;
-        }
-
-        .explanation-container {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 16px;
-            color: #9b4489;
-        }
-
-        .explanation-container ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .explanation-container li {
-            margin-bottom: 15px;
-        }
+    
 
         .back-to-dashboard {
             position: fixed;
@@ -140,7 +107,7 @@
             font-weight: bold;
         }
 
-        /* Style for the chart */
+     
         .chart-container {
             margin-top: 30px;
             width: 100%;
@@ -149,11 +116,20 @@
         }
 
         canvas {
-          
+
             width: 200px !important;
             height: 200px !important;
         }
+
+        .additional-info {
+            font-size: 14px;
+            color: #442f42;
+            line-height: 1.6;
+            margin-top: 5px;
+            text-align: left;
+        }
     </style>
+
 </head>
 
 <body>
@@ -163,96 +139,91 @@
         Back to Dashboard
     </a>
 
-    <h1>Autism Screening Results</h1>
+    <h1>Child Development Analysis & Intervention Reports</h1>
 
     <div class="card-container">
-       
+      
         <div class="result-box">
             <h2>Facial Analysis</h2>
-            
-                 
-    <div class="chart-container">
-        <canvas id="autismChart"></canvas>
-    </div>
-     
-     <div class="majority">
-        <h2>Majority Result: {{ majority_result }}</h2>
-    </div>
+            <div class="chart-container">
+                <canvas id="autismChart"></canvas>
+            </div>
+          
+            <div class="majority">
+                <h2>Majority Result: {{ majority_result }}</h2>
+            </div>
+        </div>
 
-</div>
-
-     
         <div class="result-box">
-            <h2>Questionnaire Results</h2>
-            
+            <h2>Detailed Insights</h2>
+            <p class="additional-info">
+                {% if majority_result == 'Non-Autistic' %}
+                &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp Here are some key insights:<br>
+                •Typical Development: Your child’s results indicate typical growth with age-appropriate social and
+                cognitive patterns.<br>
+                •Key Strengths: Strong eye contact, focus on social cues, and dynamic responses.<br>
+                •Developmental Tips: Continue fostering growth with our intervention plans.<br>
+                •Supportive Guidance: Access resources & support page to know more about child's development.<br>
+
+                {% else %}
+                &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp Here are some key insights:<br>
+                •Indicators of ASD: Results show characteristics of ASD like unresponsiveness, lack of eye contact.<br>
+                •Early Intervention: Start our intervention plans to support skills.<br>
+                •Developmental Tips: Focus on areas of their interests and help them to develop.<br>
+                •Supportive Guidance: Access resources & support page to know more about child's development.<br>
+                
+                {% endif %}
+            </p>
+
         </div>
     </div>
 
 
-    <div class="explanation-container">
-        <h3>Explanation of Results:</h3>
-        <ul>
-            <li><strong>Facial Analysis:</strong> This section evaluates key facial features like eye contact, emotional
-                expressions, and gaze direction, which are often used to assess autism-related behaviors.</li>
-            <li><strong>Questionnaire Results:</strong> This section contains responses to questions related to
-                communication, social interaction, and behavior patterns that may indicate autism spectrum disorder.
-            </li>
-            <li><strong>Majority Result:</strong> Based on the facial analysis and questionnaire, the majority result
-                will provide an overall conclusion about whether autism-related signs are detected.</li>
-        </ul>
-    </div>
-
-
-    <div class="button-container">
-        <a href="{{url_for('intervention')}}" class="intervention-button">Start Intervention</a>
-    </div>
-
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  
-    var autisticCount = {{ result_counts['Autistic'] }}; 
-var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
+    <script>
 
-    var total = autisticCount + nonAutisticCount;
+        var autisticCount = {{ autistic_count}}
+        var nonAutisticCount = {{ non_autistic_count}};
 
-    var autisticPercentage = (autisticCount / total) * 100;
-    var nonAutisticPercentage = (nonAutisticCount / total) * 100;
+        var total = autisticCount + nonAutisticCount;
 
-    var ctx = document.getElementById('autismChart').getContext('2d');
-    var autismChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Autistic', 'Non-Autistic'],
-            datasets: [{
-                data: [autisticPercentage, nonAutisticPercentage],
-                backgroundColor: ['#EA5F89', '#F7B7A3'],
-                borderColor: ['#EA5F89', '#F7B7A3'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.label + ': ' + Math.round(tooltipItem.raw) + '%';
+        var autisticPercentage = (autisticCount / total) * 100;
+        var nonAutisticPercentage = (nonAutisticCount / total) * 100;
+
+        var ctx = document.getElementById('autismChart').getContext('2d');
+        var autismChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Autistic', 'Non-Autistic'],
+                datasets: [{
+                    data: [autisticPercentage, nonAutisticPercentage],
+                    backgroundColor: ['#EA5F89', '#F7B7A3'],
+                    borderColor: ['#EA5F89', '#F7B7A3'],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + Math.round(tooltipItem.raw) + '%';
+                            }
                         }
                     }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
+
 </body>
 
 </html> -->
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -260,7 +231,8 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autism Screening Results</title>
+    <title>Child Development Analysis & Intervention Reports</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -320,27 +292,6 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
             margin-top: 20px;
         }
 
-        .intervention-button {
-            display: inline-block;
-            background-color: #905878;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background-color 0.3s ease;
-            margin-left: 630px;
-        }
-
-        .intervention-button:hover {
-            background-color: #b486aa;
-        }
-
-
         .back-to-dashboard {
             position: fixed;
             top: 20px;
@@ -381,7 +332,7 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
             font-weight: bold;
         }
 
-        /* Style for the chart */
+        /* Style for charts */
         .chart-container {
             margin-top: 30px;
             width: 100%;
@@ -390,7 +341,6 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
         }
 
         canvas {
-
             width: 200px !important;
             height: 200px !important;
         }
@@ -402,18 +352,44 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
             margin-top: 5px;
             text-align: left;
         }
-    </style>
 
+        .intervention-analytics {
+            margin-top: 50px;
+        }
+
+        .chart-container.analytics-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .chart-card {
+            width: 22%;
+            background: #ffffff;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 100px;
+            margin-left: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+        }
+
+        canvas {
+            max-width: 100%;
+            
+        }
+    </style>
 </head>
 
 <body>
     <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
-        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
-            class="dashboard-icon">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon" class="dashboard-icon">
         Back to Dashboard
     </a>
 
-    <h1>Autism Screening Results</h1>
+    <h1>Child Development Analysis & Intervention Reports</h1>
 
     <div class="card-container">
         <!-- Facial Results Card -->
@@ -432,37 +408,34 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
             <h2>Detailed Insights</h2>
             <p class="additional-info">
                 {% if majority_result == 'Non-Autistic' %}
-                &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp Here are some key insights:<br>
-                •Typical Development: Your child’s results indicate typical growth with age-appropriate social and
-                cognitive patterns.<br>
-                •Key Strengths: Strong eye contact, focus on social cues, and dynamic responses.<br>
-                •Developmental Tips: Continue fostering growth with our intervention plans.<br>
-                •Supportive Guidance: Access resources & support page to know more about child's development.<br>
-
+                Here are some key insights:<br>
+                • Typical Development: Your child’s results indicate typical growth with age-appropriate social and cognitive patterns.<br>
+                • Key Strengths: Strong eye contact, focus on social cues, and dynamic responses.<br>
+                • Developmental Tips: Continue fostering growth with our intervention plans.<br>
+                • Supportive Guidance: Access resources & support page to know more about child's development.<br>
                 {% else %}
-                &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp Here are some key insights:<br>
-                •Indicators of ASD: Results show characteristics of ASD like unresponsiveness, lack of eye contact.<br>
-                •Early Intervention: Start our intervention plans to support skills.<br>
-                •Developmental Tips: Focus on areas of their interests and help them to develop.<br>
-                •Supportive Guidance: Access resources & support page to know more about child's development.<br>
-                
+                Here are some key insights:<br>
+                • Indicators of ASD: Results show characteristics of ASD like unresponsiveness, lack of eye contact.<br>
+                • Early Intervention: Start our intervention plans to support skills.<br>
+                • Developmental Tips: Focus on areas of their interests and help them to develop.<br>
+                • Supportive Guidance: Access resources & support page to know more about child's development.<br>
                 {% endif %}
             </p>
-
         </div>
     </div>
 
-    <!-- Start Intervention Button -->
-    <div class="button-container">
-        <a href="{{url_for('intervention')}}" class="intervention-button">Start Intervention</a>
+    <!-- Intervention Analytics -->
+    <div class="intervention-analytics">
+        <h2 style="text-align: center; color: #9b4489;">Intervention Analytics</h2>
+        <div class="chart-container analytics-container" id="charts-container">
+            <!-- Graphs will be dynamically added here -->
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-
-        var autisticCount = {{ autistic_count}}
-        var nonAutisticCount = {{ non_autistic_count}};
-
+        // Autism Chart
+        var autisticCount = {{ autistic_count }};
+        var nonAutisticCount = {{ non_autistic_count }};
         var total = autisticCount + nonAutisticCount;
 
         var autisticPercentage = (autisticCount / total) * 100;
@@ -477,16 +450,13 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
                     data: [autisticPercentage, nonAutisticPercentage],
                     backgroundColor: ['#EA5F89', '#F7B7A3'],
                     borderColor: ['#EA5F89', '#F7B7A3'],
-
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        position: 'top',
-                    },
+                    legend: { position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function (tooltipItem) {
@@ -497,8 +467,55 @@ var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
                 }
             }
         });
-    </script>
 
+        // Fetch and Render Intervention Graphs
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/get_scores') // Fetch data from the backend
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('charts-container');
+                    data.forEach((game, index) => {
+                        // Create a container for each graph
+                        const chartCard = document.createElement('div');
+                        chartCard.className = 'chart-card';
+
+                        // Add a canvas for the graph
+                        const canvas = document.createElement('canvas');
+                        canvas.id = `chart-${index}`;
+                        chartCard.appendChild(canvas);
+                        container.appendChild(chartCard);
+
+                        // Render the graph
+                        const ctx = canvas.getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: game.scores.map((_, i) => `Attempt ${i + 1}`),
+                                datasets: [{
+                                    label: `${game.game_type} Scores`,
+                                    data: game.scores,
+                                    borderColor: 'rgba(89, 36, 76, 1)', // Border color with full opacity
+                                    backgroundColor: 'rgba(89, 36, 76, 0.2)', // Background color with 20% opacity
+                                    tension: 0.4,
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: { display: true, position: 'top' },
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: 'Attempts' } },
+                                    y: { title: { display: true, text: 'Scores' } }
+                                }
+                            }
+                        });
+                    });
+                })
+                .catch(error => console.error('Error fetching scores:', error));
+        });
+    </script>
 </body>
 
 </html>
