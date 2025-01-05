@@ -128,13 +128,23 @@ nav a {
 
 }
 
-.info-card1,.info-card2, .info-card3 {
+.info-card2, .info-card3 {
     background-color: #FEFAF6;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     max-width: 170px;
     margin: 10px;
+
+}
+.info-card1{
+    background-color: #FEFAF6;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    max-width: 170px;
+    margin: 10px;
+
 
 }
 
@@ -168,7 +178,8 @@ nav a {
     font-size: 1rem;
     color: #333;
     line-height:1.2;
-    margin-top: 103px;
+    margin-top: 84px;
+
 }
 .info-card2 p {
     font-size: 1rem;
@@ -376,10 +387,13 @@ nav a {
       margin-left:40px;
 }
 
+
 .step-item { /* Style for each step item */
       text-align: center; /* Center content within each item */
 }
-
+.step-item:hover{
+    background-color: #ede1e2;
+}
 .testimonials {
     background-color: #FFF2D7; /* Light background color */
     background-color:#FEFAE0;

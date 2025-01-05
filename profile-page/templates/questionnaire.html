@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpectrumCare Survey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/bg-pic.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .survey-container {
+            max-width: 450px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 150px;
+
+        }
+
+        .survey-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .survey-header h1 {
+            font-size: 24px;
+            color: #9b4489;
+            margin: 0;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 18px;
+            color: #9b4489;
+        }
+
+        .question label {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 16px;
+            color: 9b4489;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #9b4489;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #743d60;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #6f4868;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #c597b4;
+            width: 0;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+
+        .back-to-dashboard {
+            position: absolute;
+            left: 60px;
+            color: #9b4489;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-to-dashboard:hover {
+            background-color: #f3ece0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-icon {
+            width: 20px;
+            /* Adjust the width of the icon */
+            height: 20px;
+            /* Adjust the height of the icon */
+            margin-right: 8px;
+            /* Space between the icon and the text */
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+
+
+    <div class="survey-container">
+        <div class="survey-header">
+            <h1>Questionnaire</h1>
+            <p>Questions<span id="current-question">1</span>/10</p>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+
+        <form id="survey-form">
+            <div id="questions-container">
+
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" id="back-btn" class="btn" disabled>Back</button>
+                <button type="button" id="next-btn" class="btn">Next</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        const questions = [
+            "Does your child have difficulty maintaining eye contact with others?",
+            "Does your child show a lack of social smile in interactions?",
+            "Does your child prefer to remain aloof rather than engaging with others?",
+            "Does your child avoid reaching out to others for communication or interaction?",
+            "Does your child prefer solitary and repetitive play activities over social play?",
+            "Does your child struggle to maintain peer relationships?",
+            "Is your child unable to initiate or sustain conversations with others?",
+            "Does your child engage in stereotyped or repetitive motor movements (e.g., hand flapping, rocking)?",
+            "Does your child show attachment to inanimate objects rather than people?",
+            "Does your child respond unusually to objects by smelling, touching, or tasting them?"
+        ];
+
+        const progress = document.getElementById('progress');
+        const currentQuestionEl = document.getElementById('current-question');
+        const questionsContainer = document.getElementById('questions-container');
+        const backBtn = document.getElementById('back-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+
+        let currentQuestionIndex = 0;
+        const responses = Array(questions.length).fill(null);
+
+        function renderQuestion() {
+            questionsContainer.innerHTML = `
+                <div class="question">
+                    <p>${questions[currentQuestionIndex]}</p>
+                    <label><input type="radio" name="response" value="Yes"> Yes</label>
+                    <label><input type="radio" name="response" value="No"> No</label>
+                </div>
+            `;
+
+            // Pre-fill answer if already selected
+            if (responses[currentQuestionIndex] !== null) {
+                document.querySelector(`input[value="${responses[currentQuestionIndex]}"]`).checked = true;
+            }
+
+            // Update progress bar
+            const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progress.style.width = `${progressPercentage}%`;
+
+            // Update question counter
+            currentQuestionEl.textContent = currentQuestionIndex + 1;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const selectedResponse = document.querySelector('input[name="response"]:checked');
+            if (!selectedResponse) {
+                alert('Please select an answer before proceeding.');
+                return;
+            }
+
+            // Save the response
+            responses[currentQuestionIndex] = selectedResponse.value;
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+                backBtn.disabled = false;
+                if (currentQuestionIndex === questions.length - 1) {
+                    nextBtn.textContent = 'Submit';
+                }
+            } else {
+                // Submit responses
+
+                fetch('/submit_survey', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+
+                        responses
+                    }),
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Survey submitted successfully!');
+                        window.location.href = '/index1';
+                    } else {
+                        alert('Error submitting survey.');
+                    }
+                });
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+                nextBtn.textContent = 'Next';
+                if (currentQuestionIndex === 0) {
+                    backBtn.disabled = true;
+                }
+            }
+        });
+
+        renderQuestion();
+    </script>
+</body>
+
+</html>

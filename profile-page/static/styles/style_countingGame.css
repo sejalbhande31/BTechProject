@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: url('/static/images/bg-pic.jpg') no-repeat center center fixed;
+    background-size: cover; /* Cover the entire viewport */
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .container {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    border: 2px solid #c57b96; /* Light blue border */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 160px;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .game-info p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 10px;
+    margin: 20px auto;
+  }
+  
+  .grid img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .options {
+    margin-top: 20px;
+  }
+  
+  .options button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #8bd3d4; /* Soft teal background */
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
+  }
+  
+  .options button:hover {
+    transform: scale(1.1);
+    background-color: #70b8b1; /* Slightly darker teal on hover */
+  }
+  
+  .options button.disabled {
+    background-color: #d0d0d0; /* Grey color when disabled */
+    cursor: not-allowed;
+  }
+  
+  .result p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  #next-btn {
+    display: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #57a957; /* Green button for next */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #next-btn:hover {
+    background-color: #3e7c3e;
+  }
+  
+  .celebration {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+  }
+  
+  .celebrate-text {
+    font-size: 2rem;
+    color: #ffcb77; /* Soft celebratory yellow */
+    animation: riseUp 3s ease-out;
+  }
+  
+  #confetti {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    background: url('images/confetti.gif') repeat-x center top / contain;
+    animation: flicker 5s infinite;
+  }
+  
+  @keyframes riseUp {
+    0% { transform: translateY(200px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .back-to-dashboard {
+    position: absolute;
+    left: 60px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 20px; /* Adjust the width of the icon */
+    height: 20px; /* Adjust the height of the icon */
+    margin-right: 8px; /* Space between the icon and the text */
+    vertical-align: middle;
+}

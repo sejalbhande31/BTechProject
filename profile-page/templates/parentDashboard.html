@@ -1,0 +1,150 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard - SpectrumCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_dashboard.css') }}">
+
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>Welcome to your dashboard!</h2>
+        <ul>
+            <li><a href="#profile-overview"><img src="{{ url_for('static', filename='images/profile_overview.png') }}" alt="Profile Icon"> Profile Overview</a></li>
+            <li><a href="{{ url_for('detectGuide') }}"><img src="{{ url_for('static', filename='images/diagnosis.png') }}" alt="Diagnosis Icon"> Diagnosis</a></li>
+            <li><a href="{{url_for('intervention')}}"><img src="{{ url_for('static', filename='images/interventions.png') }}" alt="Interventions Icon"> Interventions</a></li>
+            <li><a href="{{ url_for('resources_support') }}"><img src="{{ url_for('static', filename='images/resources.png') }}" alt="Resources Icon"> Resources & Support</a></li>
+            <li><a href="{{ url_for('update_profile') }}"><img src="{{ url_for('static', filename='images/profile-management.png') }}" alt="Profile Management Icon">Update Profile</a></li>
+            <li><a href="{{ url_for('faqSection') }}"><img src="{{ url_for('static', filename='images/faq.png') }}" alt="FAQ Icon"> FAQ Section</a></li>
+            <li><a href="{{ url_for('logOut') }}"><img src="{{ url_for('static', filename='images/logout.png') }}" alt="LogOut Icon">LogOut</a></li>
+        </ul>
+    </div>
+    
+    <div class="container">
+
+        <div class="dashboard-form-container">
+            <div class="dashboard-form">
+                <h2>Welcome to Your Dashboard</h2>
+                <div class="form-group">
+
+                    <p><strong>Diagnosis:</strong> Autism Spectrum Disorder</p>
+                </div>
+                <div class="link-container">
+                    <a href="{{ url_for('detection') }}" target="_blank">Go to Detection Page</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard - SpectrumCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_dashboard.css') }}">
+</head>
+<style>
+.profile-info img{
+    width: 300px;
+    height: 280px;
+} 
+
+.card img{
+    margin-top: 20px;
+    width: 250px;
+    height: 200px;
+}
+
+</style>
+
+<body>
+
+    <div class="sidebar">
+        <h2>Welcome to your dashboard!</h2>
+        <ul>
+            <li><a href="{{url_for('parentDashboard')}}"><img src="{{ url_for('static', filename='images/profile_overview.png') }}" alt="Profile Icon"> Profile Overview</a></li>
+            <li><a href="{{ url_for('detectGuide') }}"><img src="{{ url_for('static', filename='images/diagnosis.png') }}" alt="Diagnosis Icon"> Diagnosis</a></li>
+            <li><a href="{{ url_for('intervention') }}"><img src="{{ url_for('static', filename='images/interventions.png') }}" alt="Interventions Icon"> Interventions</a></li>
+            <li><a href="{{ url_for('resources_support') }}"><img src="{{ url_for('static', filename='images/resources.png') }}" alt="Resources Icon"> Resources & Support</a></li>
+            <li><a href="{{ url_for('update_profile') }}"><img src="{{ url_for('static', filename='images/profile-management.png') }}" alt="Profile Management Icon">Update Profile</a></li>
+            <li><a href="{{ url_for('faqSection') }}"><img src="{{ url_for('static', filename='images/faq.png') }}" alt="FAQ Icon"> FAQ Section</a></li>
+            <li><a href="{{ url_for('logOut') }}"><img src="{{ url_for('static', filename='images/logout.png') }}" alt="LogOut Icon">LogOut</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <!-- Profile Info Section -->
+        <div class="profile-info">
+            <h3>Child's Profile</h3>
+            <ul>
+                <li>
+                    <span>Child's Name</span>
+                    <strong>{{child_name}}</strong>
+                </li>
+                <li>
+                    <span>D.O.B</span>
+                    <strong>{{child_dob}}</strong>
+                </li>
+                <li>
+                    <span>Age</span>
+                    <strong>{{child_age}}</strong>
+                </li>
+                <li>
+                    <span>Gender</span>
+                    <strong>{{child_gender}}</strong>
+                </li>
+                <li>
+                    <span>Parent's Name</span>
+                    <strong>{{parent_name}}</strong>
+                </li>
+            </ul>
+            <img src="/static/images/children.jpg" alt="children-pic">
+        </div>
+        
+
+        <!-- Cards Section -->
+        <div class="cards-container">
+            <div class="card">
+                <h4>Detection Summary</h4>
+                {% if detection_completed %}
+                    <p>Overview of diagnosis and analysis</p>
+                    <a href="{{ url_for('detection') }}" class="btn">View Detection</a>
+                    <img src="/static/images/reports.jpg" alt="children-pic">
+                {% else %}
+                    <p>Your child hasn't completed the detection process yet! <br><br>Start now to get detailed insights.</p>
+                    <a href="{{ url_for('detectGuide') }}" class="btn">Start Detection</a>
+                   
+                {% endif %}
+                <img src="/static/images/reports.jpg" alt="children-pic">
+                
+            </div>
+            <div class="card">
+                <h4>Intervention Summary</h4>
+                {% if intervention_completed %}
+                <p>Overview of interventions and progress</p>
+                <a href="{{ url_for('intervention') }}" class="btn">View Interventions</a>
+            {% else %}
+                <p>Your child hasn't completed the interventions yet! <br><br>Start now to get detailed insights.</p>
+                <a href="{{ url_for('intervention') }}" class="btn">Start Intervention</a>
+            {% endif %}
+            <img src="/static/images/reports1.jpg" alt="children-pic">
+            </div>
+         
+        </div>
+    </div>
+
+</body>
+
+</html>

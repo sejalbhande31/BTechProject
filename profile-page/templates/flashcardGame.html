@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASHCARDS FOR KIDS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/static/styles/style_flashcardGame.css">
+  
+</head>
+<body class="bg-gray-100">
+    <a href="{{ url_for('intervention') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Intervention Page
+    </a>
+<div class="custom-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2 class="text-2xl font-bold text-purple-900 mb-4">Game Guidelines</h2>
+        <ul class="list-disc list-inside">
+            <li>Choose a category to start learning.</li>
+            <li>Each flashcard will show an image and and pronounce it</li>
+            <li>Click on the arrows to view flashcards.</li>
+            <li>Practice pronunciation by hearing to the sound.</li>
+            <li>After viewing all flashcards, take the assessment.</li>
+            <li>Answer the questions to test your knowledge.</li>
+            <li>Check your results at the end of the game!</li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main content w-3/4">
+        <h1 class="text-4xl font-bold text-center mb-8 text-purple-900">LEARNING CARDS</h1>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <input type="hidden" id="baseURL" value="{{ url_for('flashCategory') }}">
+            <!-- Letters Category -->
+            <div class="card bg-white p-6 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('letters')">
+                <img alt="Category icon for letters" class="img1 mx-auto mb-2" height="150" src="/static/images/card_images/alphabet_card.jpg" width="150"/>
+                <p class="custom1-text">ALPHABETS</p>
+            </div>
+            <!-- Numbers Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('numbers')">
+                <img alt="Category icon for numbers" class="img2 mx-auto mb-2" height="150px" src="/static/images/card_images/numbers_card.jpg" width="150"/>
+                <p class="custom2-text">NUMBERS</p>
+            </div>
+            <!-- Animals Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('animals')">
+                <img alt="Category icon for animals" class="img3 mx-auto mb-2" height="150" src="/static/images/card_images/animal_card.jpg" width="150"/>
+                <p class="custom3-text">ANIMALS</p>
+            </div>
+            <!-- Fruits Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('fruits')">
+                <img alt="Category icon for fruits" class="img4 mx-auto mb-2" height="150" src="/static/images/card_images/fruits_card.jpg" width="150"/>
+                <p class="custom4-text">FRUITS</p>
+            </div>
+            <!-- Food Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('food')">
+                <img alt="Category icon for food" class="img5 mx-auto mb-2" height="150" src="/static/images/card_images/food_cards.jpg" width="150"/>
+                <p class="custom5-text">FOOD</p>
+            </div>
+            <!-- School Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('school')">
+                <img alt="Category icon for school" class="img6 mx-auto mb-2" height="150" src="/static/images/card_images/school_card.jpg" width="150"/>
+ <p class="custom6-text">SCHOOL</p>
+            </div>
+            <!-- Toys Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('toys')">
+                <img alt="Category icon for toys" class="img7 mx-auto mb-2" height="150" src="/static/images/card_images/toys_card.jpg" width="150"/>
+                <p class="custom7-text">TOYS</p>
+            </div>
+            <!-- Vegetables Category -->
+            <div class="card bg-white p-4 rounded-lg shadow-md text-center cursor-pointer" onclick="navigateToCategory('vegetables')">
+                <img alt="Category icon for vegetables" class="img8 mx-auto mb-2" height="150" src="/static/images/card_images/vegetable_card.jpg" width="150"/>
+                <p class="custom8-text">VEGETABLES</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function navigateToCategory(category) {
+        const baseURL = document.getElementById('baseURL').value; // Get the base URL
+        window.location.href = `${baseURL}?category=${category}`;
+    }
+</script>
+</body>
+</html>

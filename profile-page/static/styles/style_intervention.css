@@ -1,0 +1,94 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f4f4f4; */
+    margin: 0;
+    padding: 0;
+    background: url('/static/images/bg-pic.jpg') no-repeat center center fixed; /* Background image */
+    background-size: cover; /* Cover the entire viewport */
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    color: #59244c;
+    margin-top: 50px;
+    font-size: 2.5em;
+}
+
+.games-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.game-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.game-card h2 {
+    color: #59244c;
+    font-size: 1.5em;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
+.game-link {
+    display: inline-block;
+    background-color: #947d90;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.game-link:hover {
+    background-color:  #d3acd8;
+}
+
+.game-image{
+    width: 100%;
+    max-width: 250px;  /* Adjust according to your preferred image size */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.back-to-dashboard {
+    position: absolute;
+    left: 60px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 20px; /* Adjust the width of the icon */
+    height: 20px; /* Adjust the height of the icon */
+    margin-right: 8px; /* Space between the icon and the text */
+    vertical-align: middle;
+}

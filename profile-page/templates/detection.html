@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,7 +24,7 @@
 
         .container {
             text-align: center;
-            position: relative; 
+            position: relative;
         }
 
         .video-container {
@@ -40,7 +40,6 @@
             padding-right: 150px;
         }
 
-        /* Button Styling */
         .button-container {
             margin-top: 20px;
         }
@@ -61,7 +60,7 @@
             background-color: #c09191;
         }
 
-        /* Camera Feed */
+       
         #camera-container {
             position: fixed;
             top: 10px;
@@ -79,10 +78,9 @@
         #camera-feed {
             width: 100%;
             height: 100%;
-            
+
         }
 
-        /* Hidden Class */
         .hidden {
             display: none;
         }
@@ -91,20 +89,138 @@
 
 <body>
     <div class="container">
-        <!-- YouTube Video for Child to Watch -->
+      
         <div class="video-container">
-            <iframe
-                id="child-video"
-                src="https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=0"
-                frameborder="0"
+            <iframe id="child-video" src="https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=0" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
-        <!-- Start Detection Button -->
+ 
         <div class="button-container">
             <button id="start-detection">START DETECTION</button>
+        </div>
+
+
+        <div id="camera-container" class="hidden">
+            <video id="camera-feed" autoplay muted></video>
+        </div>
+    </div>
+    <script>
+        const startDetectionButton = document.getElementById("start-detection");
+        const cameraContainer = document.getElementById("camera-container");
+        const cameraFeed = document.getElementById("camera-feed");
+        const childVideo = document.getElementById("child-video");
+    
+        const captureInterval = 5000; 
+        let captureIntervalId; 
+        let detectionTimeout; 
+    
+        function captureImageAndUpload() {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+    
+            canvas.width = cameraFeed.videoWidth;
+            canvas.height = cameraFeed.videoHeight;
+    
+         
+            context.drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+    
+            canvas.toBlob((blob) => {
+                const formData = new FormData();
+                formData.append("image", blob, "capture.jpg");
+    
+           
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Server response:", data.message);
+                    })
+                    .catch((error) => {
+                        console.error("Error uploading image:", error);
+                    });
+            }, "image/jpeg");
+        }
+    
+        function stopDetection(stream) {
+            clearInterval(captureIntervalId); 
+            clearTimeout(detectionTimeout);   
+    
+           
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+    
+            cameraContainer.classList.add("hidden"); 
+            alert("Detection has been stopped after 2 minutes.");
+
+            window.location.href = "{{ url_for('index1') }}"; 
+        }
+    
+        startDetectionButton.addEventListener("click", () => {
+          
+            cameraContainer.classList.remove("hidden");
+    
+            navigator.mediaDevices
+                .getUserMedia({ video: true })
+                .then((stream) => {
+                    cameraFeed.srcObject = stream;
+    
+                    captureIntervalId = setInterval(captureImageAndUpload, captureInterval);
+    
+                 
+                    detectionTimeout = setTimeout(() => stopDetection(stream), 120000);
+                })
+                .catch((error) => {
+                    console.error("Error accessing the camera: ", error);
+                    alert("Unable to access the camera. Please ensure it is connected and allowed.");
+                });
+    
+          
+            const videoSrc = "https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=1";
+            childVideo.src = videoSrc;
+        });
+    </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_detection.css') }}">
+   
+</head>
+<a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+    <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+        class="dashboard-icon">
+    Back to Dashboard
+</a>
+
+
+<body>
+    <div class="container">
+        <!-- YouTube Video for Child to Watch -->
+        <div class="video-container">
+            <iframe id="child-video" src="https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=0" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Start and Stop Detection Buttons -->
+        <div class="button-container">
+            <button id="start-detection">START DETECTION</button>
+            <button id="stop-detection" class="hidden">STOP DETECTION</button>
         </div>
 
         <!-- Camera Feed -->
@@ -112,33 +228,103 @@
             <video id="camera-feed" autoplay muted></video>
         </div>
     </div>
-
     <script>
-        // Elements
         const startDetectionButton = document.getElementById("start-detection");
+        const stopDetectionButton = document.getElementById("stop-detection");
         const cameraContainer = document.getElementById("camera-container");
         const cameraFeed = document.getElementById("camera-feed");
         const childVideo = document.getElementById("child-video");
+
+        const captureInterval = 5000; // Capture every 5 seconds
+        let captureIntervalId; // To store the interval ID for stopping later
+        let detectionTimeout; // To store the timeout ID for stopping detection
+        let currentStream; // To store the current camera stream
+
+        function captureImageAndUpload() {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            // Set canvas dimensions to video dimensions
+            canvas.width = cameraFeed.videoWidth;
+            canvas.height = cameraFeed.videoHeight;
+
+            // Draw current frame from video feed to canvas
+            context.drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas image to Blob
+            canvas.toBlob((blob) => {
+                const formData = new FormData();
+                formData.append("image", blob, "capture.jpg");
+
+                // Send to Flask backend
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Server response:", data.message);
+                    })
+                    .catch((error) => {
+                        console.error("Error uploading image:", error);
+                    });
+            }, "image/jpeg");
+        }
+
+        function stopDetection() {
+            // Stop image capturing
+            clearInterval(captureIntervalId);
+            clearTimeout(detectionTimeout);
+
+            // Stop camera stream
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+            }
+
+            // Hide camera feed and stop button
+            cameraContainer.classList.add("hidden");
+            stopDetectionButton.classList.add("hidden");
+
+            // Show the start button
+            startDetectionButton.classList.remove("hidden");
+
+            // Alert and redirect
+            alert("Detection has been stopped.");
+            window.location.href = "{{ url_for('questionnaire') }}"; 
+        }
 
         startDetectionButton.addEventListener("click", () => {
             // Show the camera feed container
             cameraContainer.classList.remove("hidden");
 
+            // Hide start button and show stop button
+            startDetectionButton.classList.add("hidden");
+            stopDetectionButton.classList.remove("hidden");
+
             // Start webcam stream
             navigator.mediaDevices
                 .getUserMedia({ video: true })
                 .then((stream) => {
+                    currentStream = stream;
                     cameraFeed.srcObject = stream;
+
+                    // Start capturing images periodically
+                    captureIntervalId = setInterval(captureImageAndUpload, captureInterval);
+
+                    // Stop detection automatically after 2 minutes (120,000 ms)
+                    detectionTimeout = setTimeout(stopDetection, 120000);
                 })
                 .catch((error) => {
                     console.error("Error accessing the camera: ", error);
                     alert("Unable to access the camera. Please ensure it is connected and allowed.");
                 });
 
-            // Start the YouTube video by adding autoplay=1 to the src
+            // Start the YouTube video
             const videoSrc = "https://www.youtube.com/embed/tkpfg-1FJLU?autoplay=1";
             childVideo.src = videoSrc;
         });
+
+        stopDetectionButton.addEventListener("click", stopDetection);
     </script>
 </body>
 

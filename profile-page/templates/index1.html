@@ -1,0 +1,479 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Screening Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/images/bg-pic.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #9b4489;
+        }
+
+        .result-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            margin-left: 230px;
+        }
+
+        .result-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 450px;
+            height: 350px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .result-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .result-box h2 {
+            color: #9b4489;
+            font-size: 24px;
+        }
+
+        .result-box p {
+            font-size: 18px;
+            color: #9b4489;
+        }
+
+        .majority {
+            font-size: 22px;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .intervention-button {
+            display: inline-block;
+            background-color: #905878;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .intervention-button:hover {
+            background-color: #b486aa;
+        }
+
+        .explanation-container {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 16px;
+            color: #9b4489;
+        }
+
+        .explanation-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .explanation-container li {
+            margin-bottom: 15px;
+        }
+
+        .back-to-dashboard {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #9b4489;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 25px;
+        }
+
+        .back-to-dashboard:hover {
+            background-color: #f3ece0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .result-label {
+            font-weight: bold;
+            color: #9b4489;
+            font-size: 18px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Style for the chart */
+        .chart-container {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+          
+            width: 200px !important;
+            height: 200px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+
+    <h1>Autism Screening Results</h1>
+
+    <div class="card-container">
+       
+        <div class="result-box">
+            <h2>Facial Analysis</h2>
+            
+                 
+    <div class="chart-container">
+        <canvas id="autismChart"></canvas>
+    </div>
+     
+     <div class="majority">
+        <h2>Majority Result: {{ majority_result }}</h2>
+    </div>
+
+</div>
+
+     
+        <div class="result-box">
+            <h2>Questionnaire Results</h2>
+            
+        </div>
+    </div>
+
+
+    <div class="explanation-container">
+        <h3>Explanation of Results:</h3>
+        <ul>
+            <li><strong>Facial Analysis:</strong> This section evaluates key facial features like eye contact, emotional
+                expressions, and gaze direction, which are often used to assess autism-related behaviors.</li>
+            <li><strong>Questionnaire Results:</strong> This section contains responses to questions related to
+                communication, social interaction, and behavior patterns that may indicate autism spectrum disorder.
+            </li>
+            <li><strong>Majority Result:</strong> Based on the facial analysis and questionnaire, the majority result
+                will provide an overall conclusion about whether autism-related signs are detected.</li>
+        </ul>
+    </div>
+
+
+    <div class="button-container">
+        <a href="{{url_for('intervention')}}" class="intervention-button">Start Intervention</a>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  
+    var autisticCount = {{ result_counts['Autistic'] }}; 
+var nonAutisticCount = {{ result_counts['Non-Autistic'] }};
+
+    var total = autisticCount + nonAutisticCount;
+
+    var autisticPercentage = (autisticCount / total) * 100;
+    var nonAutisticPercentage = (nonAutisticCount / total) * 100;
+
+    var ctx = document.getElementById('autismChart').getContext('2d');
+    var autismChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Autistic', 'Non-Autistic'],
+            datasets: [{
+                data: [autisticPercentage, nonAutisticPercentage],
+                backgroundColor: ['#EA5F89', '#F7B7A3'],
+                borderColor: ['#EA5F89', '#F7B7A3'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': ' + Math.round(tooltipItem.raw) + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Screening Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/images/bg-pic.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #9b4489;
+        }
+
+        .result-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            margin-left: 230px;
+        }
+
+        .result-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 450px;
+            height: 350px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .result-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .result-box h2 {
+            color: #9b4489;
+            font-size: 24px;
+        }
+
+        .result-box p {
+            font-size: 18px;
+            color: #9b4489;
+        }
+
+        .majority {
+            font-size: 22px;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .intervention-button {
+            display: inline-block;
+            background-color: #905878;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+            margin-left: 630px;
+        }
+
+        .intervention-button:hover {
+            background-color: #b486aa;
+        }
+
+
+        .back-to-dashboard {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #9b4489;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 25px;
+        }
+
+        .back-to-dashboard:hover {
+            background-color: #f3ece0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .result-label {
+            font-weight: bold;
+            color: #9b4489;
+            font-size: 18px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Style for the chart */
+        .chart-container {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+          
+            width: 200px !important;
+            height: 200px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+
+    <h1>Autism Screening Results</h1>
+
+    <div class="card-container">
+        <!-- Facial Results Card -->
+        <div class="result-box">
+            <h2>Facial Analysis</h2>
+            <div class="chart-container">
+                <canvas id="autismChart"></canvas>
+            </div>
+            <!-- Majority Result -->
+    <div class="majority">
+        <h2>Majority Result: {{ majority_result }}</h2>
+    </div>
+        </div>
+        <!-- Questionnaire Results Card -->
+        <div class="result-box">
+            <h2>Questionnaire Analysis</h2>
+            <p>{{ survey_classification }}</p>
+        </div>
+    </div>
+
+
+    <!-- Start Intervention Button -->
+    <div class="button-container">
+        <a href="{{url_for('intervention')}}" class="intervention-button">Start Intervention</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Data from backend
+        var autisticCount = {{ result_counts['autistic'] }};
+        var nonAutisticCount = {{ result_counts['non-autistic'] }};
+        var total = autisticCount + nonAutisticCount;
+
+        var autisticPercentage = (autisticCount / total) * 100;
+        var nonAutisticPercentage = (nonAutisticCount / total) * 100;
+
+        // Chart.js configuration
+        var ctx = document.getElementById('autismChart').getContext('2d');
+        var autismChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Autistic', 'Non-Autistic'],
+                datasets: [{
+                    data: [autisticPercentage, nonAutisticPercentage],
+                    backgroundColor: ['#EA5F89', '#F7B7A3'],
+                    borderColor: ['#EA5F89', '#F7B7A3'],
+
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + Math.round(tooltipItem.raw) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

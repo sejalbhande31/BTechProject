@@ -1,0 +1,100 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3ece0;
+    background-image: url('/static/images/bg-pic.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #9b4489;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+}
+
+.section h2 {
+    color: #9b4489;
+ 
+    margin-bottom: 5px;
+    margin-left: 50px;
+}
+.section h3{
+    color: #9b4489;
+}
+
+.section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.section ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #d3acd8;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.section ul li:hover {
+    background: #f3ece0;
+}
+
+a {
+    text-decoration: none;
+    color: #9b4489;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.back-to-dashboard {
+    position: absolute;
+    left: 60px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 20px; /* Adjust the width of the icon */
+    height: 20px; /* Adjust the height of the icon */
+    margin-right: 8px; /* Space between the icon and the text */
+    vertical-align: middle;
+}

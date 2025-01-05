@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile - SpectrumCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_updateProfile.css') }}">
+
+</head>
+
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+
+    <div class="container">
+        <h2>Update Profile</h2>
+        <form action="{{ url_for('update_profile') }}" method="post">
+
+            <!-- Parent Information -->
+            <div class="form-group">
+                <label for="parent-name">Parent Name</label>
+                <input type="text" id="parent-name" name="parent-name" value="{{ parent_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" value="{{ phone }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="{{ email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    <i id="togglePassword" class="fas fa-eye"></i> <!-- Eye icon -->
+                </div>
+            </div>
+
+
+            <!-- Conditionally Render Child Information -->
+            {% if has_child %}
+            <div class="form-group">
+                <label for="child-age">Child's Age</label>
+                <input type="number" id="child-age" name="child-age" value="{{ child_age }}" required>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="child-full-name">Child's Full Name</label>
+                <input type="text" id="child-full-name" name="child-full-name" value="{{ child_full_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="child-dob">Child's Date of Birth</label>
+                <input type="date" id="child-dob" name="child-dob" value="{{ child_dob }}" required>
+            </div>
+            <div class="form-group">
+                <label for="child-age">Child's Age</label>
+                <input type="number" id="child-age" name="child-age" value="{{ child_age }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="Male" {{ "selected" if gender=="Male" else "" }}>Male</option>
+                    <option value="Female" {{ "selected" if gender=="Female" else "" }}>Female</option>
+                    <option value="Other" {{ "selected" if gender=="Other" else "" }}>Other</option>
+                </select>
+            </div>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+
+    </div>
+    <script>
+        // Check if the URL contains the success query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('success') && urlParams.get('success') === 'true') {
+            alert('Profile has been updated successfully!');
+        }
+
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const icon = this;
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Show the password
+                icon.classList.remove('fa-eye'); // Change icon to open eye
+                icon.classList.add('fa-eye-slash'); // Change icon to closed eye
+            } else {
+                passwordField.type = 'password'; // Hide the password
+                icon.classList.remove('fa-eye-slash'); // Change icon to closed eye
+                icon.classList.add('fa-eye'); // Change icon to open eye
+            }
+        });
+
+    </script>
+</body>
+
+</html>

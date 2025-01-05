@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Guidelines - SpectrumCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_detectGuide.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+        <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+            class="dashboard-icon">
+        Back to Dashboard
+    </a>
+
+
+    <div class="container">
+        <div class="image-container">
+            <img src="/static/images/guidelines-image.jpeg" alt="Detection Guidelines">
+        </div>
+
+        <div class="content-container">
+            <h2>DETECTION GUIDELINES</h2>
+           
+            <p class="additional-info">
+                • Detection will complete in 2 steps:<br>
+                &nbsp 1. Facial Analysis <br>
+                &nbsp 2. Questionnaire Based <br>
+                • A video will be played in front of your child for 2 minutes.<br>
+                • Make sure the child is visible in the camera feed.<br>
+                • After completing the video simulation, the questionnaire will be displayed.<br>
+                • Answer the questionnaire as per your child's behaviour.<br>
+                • At the end, you will be redirected to the diagnosis reports.
+            </p>
+
+            
+             <div class="button-container">
+                <a href="{{ url_for('detection') }}" class="btn">Go to Detection Module</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

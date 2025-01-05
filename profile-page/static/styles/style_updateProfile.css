@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('/static/images/bg-pic.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.password-container {
+    position: relative; /* Enables positioning for the eye icon */
+    width: 100%;
+    max-width: 250px; /* Matches the input field width */
+}
+
+#password {
+    width: 100%;
+    padding: 8px 35px 8px 8px; /* Add padding on the right for the icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 10px; /* Position it inside the input field */
+    top: 50%; /* Center it vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px; /* Slightly larger than the text for better visibility */
+    color: #571d4d; /* Neutral color to match input border */
+    transition: color 0.3s ease;
+
+}
+
+#togglePassword:hover {
+    color: #9b4489; /* Match the hover color of buttons */
+}
+
+
+.container {
+    max-width: 600px; /* Decrease max width */
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align content horizontally to the center */
+    justify-content: center; /* Center the content vertically */
+}
+
+h2 {
+    text-align: center;
+    color: #9b4489;
+    margin-bottom: 20px;
+    font-size: 24px; /* Adjust title size */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Make sure inputs take up full width */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 16px; /* Label size */
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px; /* Decrease input height */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Decrease font size */
+}
+
+.form-group input[type="password"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px; /* Decrease input height */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px; /* Decrease font size */
+}
+
+.form-group button {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    background-color: #9b4489;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-group button:hover {
+    background-color: #7a336d;
+}
+
+.back-to-dashboard {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+}

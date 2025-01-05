@@ -1,0 +1,285 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('/static/images/bg-pic.jpg'); /* Set your background image here */
+    background-size: cover; /* Cover the entire viewport */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-position: center; /* Center the background image */
+    
+}
+.custom-container{
+
+        max-width: 1200px; /* Adjust this value as needed for your design */
+        margin-left: 1px;
+        margin-right: auto;
+        padding: 1rem; /* Equivalent to p-4 */
+        display: flex; /* Equivalent to flex */
+    
+}
+.sidebar {
+    width: 350px; /* Ensures the sidebar takes up 25% of the width */
+    background-color: #ffffff; /* White background for the sidebar */
+    padding: 1.5rem; /* Padding inside the sidebar */
+    border-radius: 0.5rem; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-right: 1rem; /* Space baetween sidebar and main content */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    padding-top: 50px;
+    height: 560px;
+    margin-top: 70px;
+    
+}
+
+
+/* Optional: Style for the title */
+.sidebar h2 {
+    color: #4f3294; /* Purple color for the title */
+    font-size: 1.5rem; /* Font size for the title */
+    margin-bottom: 1rem; /* Space below the title */
+    padding-left: 30px;
+}
+
+/* Optional: Style for the list items */
+.sidebar ul {
+    list-style-type: disc; /* Disc style for list items */
+    padding-left: 1.5rem; /* Indentation for list items */
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem; /* Space between list items */
+    color: #4a5568; /* Dark gray color for list items */
+    font-size: 1rem; /* Font size for list items */
+}
+
+.grid{
+    padding-left: 10px;
+    width: 1180px;
+}
+.card{
+    background-color: white;
+
+}
+.generate_card{
+    width: 280px;
+}
+.custom1-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding: 5px;
+}
+.custom2-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 42px;
+}
+.custom3-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 20px;
+}
+.custom4-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 20px;
+}
+.custom5-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 7px;
+}
+.custom6-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 17px;
+}
+.custom7-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 28px;
+}
+.custom8-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003063;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    padding-top: 15px;
+}
+
+
+.img1{
+    width: 180px;
+    height: 170px;
+}
+.img2{
+    width: 200px;
+    height: 140px;
+    padding-top: 20px;
+}
+.img3{
+    width: 195px;
+    height: 160px;
+    padding-top: 22px;
+}
+.img4{
+    width: 195px;
+    height: 160px;
+    padding-top: 20px;
+}
+.img5{
+    width: 180px;
+    height: 170px;
+    
+}
+.img6{
+    padding-top: 25px;
+    width: 180px;
+    height: 160px;
+}
+.img7{
+    padding-top: 30px;
+    width: 170ox;
+}
+.img8{
+    width: 185px;
+    height: 160px;
+    padding-top: 30px;
+
+}
+
+/* Feedback Message Styling */
+#feedbackMessage {
+    color: #27ae60; /* Success green */
+    text-align: center;
+    
+  }
+  
+  #feedbackMessage.error {
+    color: #e74c3c; /* Error red */
+  }
+  
+  #assessment {
+    margin: auto;
+    max-width: 950px;
+    height: 500px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+   
+  /* Title Styling */
+  .match_text {
+    color: #2c3e50; 
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  
+  /* Question Container Styling */
+  #questionContainer {
+    font-size: 1.2rem;
+    font-weight: 480;
+    color: #34495e;
+    padding: 10px;
+    background-color: #f0f8ff; 
+    border: 1px solid #dfe6e9;
+    border-radius: 6px;
+  }
+  
+  /* Options Container Styling */
+  #optionsContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-weight: 300;
+    
+  }
+ 
+  .option {
+    
+    padding: 20px 20px;
+    border-radius: 6px;
+    
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .option:hover {
+    background-color: #fdfdfd;
+    color: #fff;
+    transform: scale(1.05); 
+  }
+
+  .back-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 535px;  }
+ 
+
+   .left-arrow{
+    margin-left: 250px;
+    
+   }
+   .right-arrow{
+    margin-right: 250px;
+   }
+
+   #results {
+    transition: all 0.3s ease;
+  }
+  
+  #results .bg-white {
+    background-color: #ffffff; /* White background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  #results p {
+    margin: 0.5rem 0; /* Spacing between paragraphs */
+  }
+  
+  #results canvas {
+    margin-top: 1rem; /* Space above the chart */
+  }
+  .back-to-dashboard {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    position: absolute;
+    left: 85px;
+    color: #9b4489;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 30px;
+}
+
+.back-to-dashboard:hover {
+    background-color: #f3ece0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-icon {
+    width: 16px; /* Adjust the width of the icon */
+    height: 16px; /* Adjust the height of the icon */
+    margin-right: 5px; /* Add some space between the icon and text */
+}

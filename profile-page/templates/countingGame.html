@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object Counting Game</title>
+  <link rel="stylesheet" href="/static/styles/style_countingGame.css">
+</head>
+<body>
+  <a href="{{ url_for('parentDashboard') }}" class="back-to-dashboard">
+    <img src="{{ url_for('static', filename='images/dashboard_icon.png') }}" alt="Dashboard Icon"
+        class="dashboard-icon">
+    Back to Dashboard
+</a>
+  <div class="container" id="game-frame">
+    <header>
+      <h1>Object Counting Game</h1>
+    </header>
+
+    <div class="game-info">
+      <p id="question"></p>
+      <p>Score: <span id="score-count">0</span></p>
+      <p>Time left: <span id="timer-count"></span> seconds</p>
+    </div>
+
+    <div id="object-grid" class="grid"></div>
+
+    <div class="options" id="options-container"></div>
+
+    <div class="result">
+      <p id="result"></p>
+      <p id="feedback"></p>
+    </div>
+
+    <button id="next-btn" onclick="nextRound()">Next</button>
+  </div>
+
+  <div class="container hidden" id="score-frame">
+    <header>
+      <h1>Congratulations!</h1>
+    </header>
+    <div class="celebration">
+      <div id="confetti"></div>
+      <p class="celebrate-text">Game Over!</p>
+      <p class="celebrate-text">Your Final Score: <span id="final-score"></span></p>
+    </div>
+  </div>
+
+  <script src="/static/scripts/scriptCountingGame.js"></script>
+</body>
+</html>
